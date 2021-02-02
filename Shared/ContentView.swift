@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+   @State var credits = 1000
+   @State var slot1 = 1
+   @State var slot2 = 1
+   @State var slot3 = 1
+    
     var body: some View {
-
-        ZStack {
-                        
-            VStack {
+        
+        VStack(spacing:20.0) {
                 
                 Spacer()
                 
@@ -24,18 +28,18 @@ struct ContentView: View {
                 HStack {
                     Text("Credits:")
                         .fontWeight(.thin)
-                    Text(String(1000))
+                    Text(String(credits))
                 }
                 
                 Spacer()
                 
                 HStack{
                     Spacer()
-                    Image("apple").resizable().aspectRatio(contentMode: .fit)
+                    Image("fruit\(slot1)").resizable().aspectRatio(contentMode: .fit)
                     Spacer()
-                    Image("cherry").resizable().aspectRatio(contentMode: .fit)
+                    Image("fruit\(slot2)").resizable().aspectRatio(contentMode: .fit)
                     Spacer()
-                    Image("star").resizable().aspectRatio(contentMode: .fit)
+                    Image("fruit\(slot3)").resizable().aspectRatio(contentMode: .fit)
                     Spacer()
                     
                 }
@@ -44,8 +48,17 @@ struct ContentView: View {
                 Spacer()
                 
                 Button("Spin") {
+                  
+                    slot1 = Int.random(in: 1...3)
+                    slot2 = Int.random(in: 1...3)
+                    slot3 = Int.random(in: 1...3)
                     
-                    print("Button is clicked")
+                    if slot1 == slot2  && slot2 == slot3 {
+                        credits+=15
+                    }
+                    else {
+                        credits-=5
+                    }
                     
                 }
                 .padding()
@@ -60,8 +73,6 @@ struct ContentView: View {
             }
         }
         
-        
-    }
 }
 
 struct ContentView_Previews: PreviewProvider {
